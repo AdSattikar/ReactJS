@@ -1,36 +1,58 @@
 import './App.css';
 import Header from './MyComponents/Header';
-import {Todos}  from './MyComponents/Todos';
-import {Footer}  from './MyComponents/Footer';
+import { Todos } from './MyComponents/Todos';
+import { Footer } from './MyComponents/Footer';
+import { useState, useEffect } from 'react';
+import { AddTodo } from './MyComponents/AddTodo';
 function App() {
-  const onDelete =(todo)=>{
-    console.log("Deteting todo",todo)
+  let initTodo;
+  if (localStorage.getItem("todos") === null) {
+    initTodo = []
   }
-  let todos = [
-    {
-      sno:1,
-      title:"Push on github",
-      desc: "push some or the other stuff on github"
-    },
-    {
-      sno:2,
-      title:"Practice DSA",
-      desc: "practice and solve any one programming/problem solving question"
-    },
-    {
-      sno:3,
-      title:"Interview Video",
-      desc:"Watch random interview prep and personality development videos"
+  else {
+    initTodo = JSON.parse(localStorage.getItem("todos"))
+  }
+  const onDelete = (todo) => {
+
+    console.log("Deteting todo", todo);
+    setTodos(todos.filter((e) => {
+      return e !== todo;
+    }));
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }
+  const addTodo = (title, desc) => {
+    console.log("I am adding this todo ", title, desc);
+    let sno;
+    if (todos.length === 0) {
+      sno = 1;
     }
-  ]
+    else {
+      sno = todos[todos.length - 1].sno + 1;
+    }
+    const userTodo = {
+      sno: sno,
+      title: title,
+      desc: desc,
+    }
+    setTodos([...todos, userTodo]);
+    console.log(userTodo)
+
+  }
+  const [todos, setTodos] = useState(initTodo);
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos))
+  }, [todos])
+
   return (
     //jsx Javscript syntax extension
     <>
-   <Header title={"My Todo List"} searchBar={true}/>
-   <Todos todos={todos} onDelete={onDelete}/>
-   <Footer />
+      <Header title={"My Todo List"} searchBar={true} />
+      <AddTodo addTodo={addTodo} />
+      <Todos todos={todos} onDelete={onDelete} />
+      <Footer />
     </>
-  ); 
+  );
 }
 
 export default App;
