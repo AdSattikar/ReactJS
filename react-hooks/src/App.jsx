@@ -4,6 +4,7 @@ import UseStateRegister from './components/UseStateRegister'
 import UseEffect from './components/UseEffect'
 import ChildUseContext from './components/ChildUseContext'
 import UseReducer from './components/UseReducer'
+import UseRef from './components/UseRef'
 
 
 
@@ -17,6 +18,7 @@ function App() {
     <div className="container"><UseEffect /></div>
     <div className="container"><ChildUseContext /></div>
     <div className="container"><UseReducer /></div>
+    <div className="container"><UseRef /></div>
     </>
   )
 }
