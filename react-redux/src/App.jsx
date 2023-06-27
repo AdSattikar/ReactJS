@@ -1,14 +1,15 @@
-
-import Navbar from "./Navbar";
+import React from "react";
+import Navbar from "./Components/Navbar";
+import Shop from "./Components/Shop";
 
 function App() {
   return (
-    <div className="container">
-      test
-      <Navbar />
-
+    <div>
+     <Navbar />
+     <div className="container">
+      <Shop />
+     </div>
     </div>
-    
   );
 }
 
